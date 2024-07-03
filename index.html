@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="stylesheet" href="style.css">
+
+  <title>Gerador de Downloads</title>
+
+  <!-- Atualiza a página a cada 60 segundos -->
+  <!-- <meta http-equiv="refresh" content="60" /> -->
+</head>
+
+<body>
+  <div class="row">
+    <section class="head">
+      <div class="col">
+        <div class="title">Gerador de Downloads</div>
+        <div class="subtitle">Uma forma simples de fazer downloads de Documentos e Vídeos</div>
+      </div>
+    </section>
+  </div>
+
+  <div class="row">
+    <section class="body">
+
+      <div class="row">
+        <div class="container col">
+
+          <div class="container-title row">Forneça as informações</div>
+
+
+          <div class="container-card row">
+            <label for="link" title="Informe o Link do Arquivo">Link do Arquivo</label>
+
+            <!-- <input type="text" name="conversa" id="conversa"> -->
+            <textarea name="link" id="link" rows="2" cols="40" oninput="search()"></textarea>
+
+          </div>
+
+
+          <div class="container-card row">
+            <label for="origem" title="Defina a ocasião da conversa">Origem do Link</label>
+
+            <select name="origem" id="origem" disabled>
+              <option value="random" selected>Detectando</option>
+              <option value="scribd">Scribd</option>
+              <option value="slideshare">Slideshare</option>
+              <option value="youtube">Youtube</option>
+              <option value="instagram">Instagram</option>
+              <option value="facebook">Facebook</option>
+              <option value="tiktok">TikTok</option>
+            </select>
+          </div>
+
+
+          <div class="container-card row">
+            <label for="formato" title="Defina a ocasião da conversa">Formato do Arquivo</label>
+
+            <select name="formato" id="formato" disabled>
+              <option value="random" selected>Detectando</option>
+              <option value="pdf">PDF</option>
+              <option value="text">Text</option>
+              <option value="slide">Slide</option>
+              <option value="video">Vídeo</option>
+            </select>
+          </div>
+
+
+
+
+          <div class="row buttons-inline">
+            <button class="button" onclick="generate()" onmouseover="">Gerar</button>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="container col">
+
+          <div class="container-title row">Seu link para download fica assim</div>
+
+          <div class="container-card row">
+            <label for="response" title="Este é o tooltip">Copie e Cole no Navegador</label>
+            <textarea name="response" id="response-box" rows="2" cols="40" readonly></textarea>
+          </div>
+
+          <div class="row buttons-inline">
+            <button class=" button" onclick="copy()">Copiar</button>
+            <!-- <a id="baixar" href="" target="_blank"><button class=" button" onclick="download()">Baixar</button></a> -->
+            <button class=" button" onclick="baixar()">Baixar</button>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+  </div>
+
+  <section class="footer row">
+    <h5>Desenvolvido por Marcos Costa. Exclusivo para uso sem fins lucrativos</h5>
+  </section>
+</body>
+
+<script src="script.js"></script>
+
+</html>
