@@ -70,8 +70,9 @@ p {
     font-size: medium;
     background-color: #04AA6D; /* Green */
     border: none;
+    border-radius: 5px;
     color: white;
-    padding: 10px;
+    padding: 5px;
     /* margin-inline: 10px; */
     margin: 5px;
     min-width: 100px;
@@ -160,25 +161,39 @@ p {
     flex-direction: column;
 }
 
-.container-card {
+.container-body {
+    /* display: flex;
+    flex-direction: row; */
     text-align: center;
     font-weight: 500;
     font-variant: small-caps;
-    text-decoration: none;
+    /* text-decoration: none; */
     width: 100%;
     max-width: 800px;
-    flex-direction: column;
-    border-color: black;
-    /* border-style: dashed; */
+    /* border-color: black; */
+    justify-content: space-around;
 }
 
+.container-body-attribute {
+    display: flex;
+    flex-direction: column;
+    min-width: 45%;
+}
+
+.container-body-attribute select {
+  width: 100%;
+  min-width: 20%;
+  padding: 3px;
+  margin-top: 6px;
+  margin-bottom: 10px;
+}
 
 
 
 /* FOOTER */
 
 .footer {
-    text-align: center;
-    text-decoration: none;
+  text-align: center;
+  text-decoration: none;
 }
 

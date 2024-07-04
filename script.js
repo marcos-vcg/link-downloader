@@ -1,3 +1,6 @@
+let downloadLink = ''
+
+
 // // Função que atualiza automaticamente qaundo um link é colado
 function search() {
   console.log("busca")
@@ -9,71 +12,100 @@ function search() {
   formato.value = 'random'
 
 
+  // Antigos Métodos
+  // if (link.match(/youtube/)) {
+  //   origem.value = 'youtube'
+  //   formato.value = 'video'
+  //   downloadLink = 'http://www.' + link.replace("youtube", "ssyoutube").substring(link.indexOf("youtube"))
+  //   // downloadLink = 'http://www.' + link.replace("youtube", "ssyoutube").substring(link.indexOf("youtube"))
+  // }
 
+  // if (link.match(/youtu.be/)) {
+  //   origem.value = 'youtube'
+  //   formato.value = 'video'
+  //   downloadLink = link.split('?')[0].replace("youtu.be/", "ssyoutube.com/watch?v=")
+
+  //   // downloadLink = 'http://' + link.split('?')[0].replace("youtu.be/", "ssyoutube.com/watch?v=").substring(link.indexOf("youtu.be/"))
+  //   // downloadLink = 'http://www.' + link.replace("youtu.be/", "ssyoutube.com/watch?v=").substring(link.indexOf("youtu.be/"))
+  // }
+
+
+
+  // Novos métodos
+
+  // link = 'https://www.youtube.com/watch?v=8k0SaiBGhgM'
   if (link.match(/youtube/)) {
     origem.value = 'youtube'
     formato.value = 'video'
-    console.log(origem)
+    downloadLink = 'https://ssyoutube.one/pt/' + link
   }
 
+  // link = 'https://youtu.be/rBdPPHq7REw?si=BNmLZGhUwdX9HBIz'
   if (link.match(/youtu.be/)) {
     origem.value = 'youtube'
     formato.value = 'video'
-    console.log(origem)
+    downloadLink = 'https://ssyoutube.one/pt/' + link.split('?')[0].replace("youtu.be/", "youtube.com/watch?v=")
   }
 
+  // link = "https://www.scribd.com/doc/10301747/Bumble-Boogie-Sheet-Music"
   if (link.match(/scribd/)) {
     origem.value = 'scribd'
-    formato.value = 'text'
-    console.log(origem)
-
+    formato.value = 'pdf'
+    downloadLink = link.split('scribd')[1].replace(".com", "https://scribd.vdownloaders.com")
+    // downloadLink = link.replace("scribd", "scribd.vdownloaders")
   }
 
+  // link = 'https://pt.slideshare.net/slideshow/especificao-de-requisitos/12807494'
   if (link.match(/slideshare/)) {
     origem.value = 'slideshare'
-    formato.value = 'text'
-    console.log(origem)
-
+    formato.value = 'slide'
+    downloadLink = 'https://slideshare.downloader.is/_/?url=' + link
   }
 
+  // link = 'https://www.sciencedirect.com/science/article/abs/pii/S0040816617302045'
+  if (link.match(/sciencedirect/)) {
+    origem.value = 'sciencedirect'
+    formato.value = 'artigo'
+    downloadLink = 'https://sci-hub.se/' + link
+  }
+
+}
 
 
+// 
+function clearLink() {
+  document.getElementById("link").value = ''
+  document.getElementById("response-box").value = ''
+
+  search()
 }
 
 // Função para gerar a pergunta
 function generate() {
+  // console.log('downloadLink: ', downloadLink)
 
   let origem = document.getElementById("origem").value
-  console.log("origem: ", origem);
+  // console.log("origem: ", origem);
   let formato = document.getElementById("formato").value
-  console.log("formato: ", formato);
+  // console.log("formato: ", formato);
   let link = document.getElementById("link").value
-  console.log("link: ", link);
+  // console.log("link: ", link);
 
-  // link = "https://www.scribd.com/doc/10301747/Bumble-Boogie-Sheet-Music"
-  // link = 'https://youtu.be/rBdPPHq7REw?si=BNmLZGhUwdX9HBIz'
 
   let responseTextArea = document.getElementById("response-box")
-
-  let response
 
 
   let isVerified = verifyBeforeGenerate(origem, formato, link)
 
   if (!isVerified) {
     console.log('Please check if the link is correct')
-    response = ''
-  } else {
-    response = link.replace("scribd", "scribd.vdownloaders")
-    response = 'http://www.' + link.replace("youtube", "ssyoutube").substring(link.indexOf("youtube"))
-    console.log("link: ", link)
-    console.log("response: ", response)
+    downloadLink = ''
   }
 
 
-
   try {
-    responseTextArea.innerText = response
+    // responseTextArea.innerText = downloadLink
+    responseTextArea.value = downloadLink
     console.log('Ok, response generated');
   } catch (err) {
     console.log('Oops, unable to generate');
@@ -119,23 +151,19 @@ function copy() {
     console.log('Copying text command was ' + msg);
   } catch (err) {
     console.log('Oops, unable to copy');
-    let responseText = responseTextArea.innerHTML
+    // let responseText = responseTextArea.innerHTML
+    let responseText = responseTextArea.value
     window.prompt("Copie para área de transferência: Ctrl+C e tecle Enter", responseText);
   }
 }
 
 
 function baixar() {
-  let responseTextArea = document.getElementById("response-box").innerHTML
-  let origem = document.getElementById('origem').value
+  // let responseTextArea = document.getElementById("response-box").innerHTML
 
-  if (responseTextArea.length) {
-    console.log(responseTextArea)
-    if (origem == 'youtube') {
-      responseTextArea = 'http://www.' + responseTextArea
-    }
-    console.log('Baixando conteúdo de: ', responseTextArea)
-    window.open(responseTextArea, '_blank');
+  if (downloadLink.length) {
+    console.log('Baixando conteúdo de: ', downloadLink)
+    window.open(downloadLink, '_blank');
     // window.open('http://www.' + responseTextArea, '_blank');
   } else {
     console.log('Não é possível baixar o arquivo desse link')
@@ -146,37 +174,3 @@ function baixar() {
   // window.location.assign('http://www.' + responseTextArea)
 
 }
-
-
-
-// Json com os formatos dos links para download
-// var download = [
-//   {
-//     "origem": "scribd",
-//     "pdf": [
-//       "https://www.scribd.vdownloaders.com/doc/36341/Business-Plan-Template"
-//     ],
-//     "text": [
-//       "Qual viagem mudou mais a sua perspectiva de vida?",
-//     ],
-//     "video": [
-//       "Qual é o seu próximo destino de viagem?"
-//     ],
-//   },
-// ]
-
-// // console.log("perguntas: ", perguntas)
-// let categorias = perguntas.map(teste => teste.categoria)
-// // console.log("categorias: ", categorias)
-
-// var select = document.getElementById("categoria");
-
-// select.options[select.options.length] = new Option("Aleatória", "random")
-
-// categorias.forEach(categoria => {
-//   select.options[select.options.length] = new Option(categoria, categoria)
-// })
-
-// for (index in categorias) {
-//     select.options[select.options.length] = new Option(categorias[index], categorias[index]);
-// }
